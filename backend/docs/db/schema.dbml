@@ -1,0 +1,8 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table FlashCard {
+  id Int [pk, increment]
+  word String [not null]
+}

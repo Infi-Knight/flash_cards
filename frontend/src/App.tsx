@@ -1,8 +1,20 @@
 import * as React from 'react';
-import { AppShell } from '@mantine/core';
+import axios from 'axios'
+import {useQuery} from "react-query";
+import {AppShell} from '@mantine/core';
 
 function App() {
-  return <AppShell>hello</AppShell>;
+    const {data, error, isLoading, isFetching} = useQuery('hello', async () => {
+        const response = await axios.get(`/api/hello`)
+        return response.data
+    })
+
+    if (isLoading) {
+        return <p>Loading...</p>
+    }
+    if (error) return <p>An error has occured</p>;
+
+    return <AppShell>{data}</AppShell>;
 }
 
 export default App;
