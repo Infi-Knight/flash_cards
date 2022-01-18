@@ -4,5 +4,9 @@
 
 Table FlashCard {
   id Int [pk, increment]
-  word String [not null]
+  word String [unique, not null]
+  definition String [not null]
+  bin Int [not null]
+  wrongCount Int [not null]
+  nextAppearanceAt DateTime [default: `now()`, not null]
 }
