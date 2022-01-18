@@ -4,7 +4,8 @@ import { join } from 'path';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PrismaService } from './prisma.service';
+import { FlashCardsModule } from './flash-cards/flash-cards.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -13,8 +14,10 @@ import { PrismaService } from './prisma.service';
       rootPath: join(__dirname, '..', 'frontend_build'),
       exclude: ['/api*'],
     }),
+    FlashCardsModule,
+    PrismaModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [AppService],
 })
 export class AppModule {}
