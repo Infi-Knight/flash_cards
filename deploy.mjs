@@ -8,6 +8,6 @@ await $`cd frontend && npm run build`
 await $`rm -rf backend/frontend_build`
 await $`cp -r frontend/build backend/frontend_build`
 
-await $`cd backend && npx prisma db push`
+await $`cd backend && npx prisma db push --accept-data-loss`
 await $`cd backend && npm run build`
 
