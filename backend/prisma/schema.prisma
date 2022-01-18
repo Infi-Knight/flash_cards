@@ -19,7 +19,7 @@ model FlashCard {
   id               Int      @id @default(autoincrement())
   word             String   @unique
   definition       String   @db.Text
-  bin              Int      @db.UnsignedTinyInt // Hard to remember is represented by bin 12
-  wrongCount       Int      @db.UnsignedTinyInt
+  bin              Int      @default(0) @db.UnsignedTinyInt // Hard to remember is represented by bin 12
+  wrongCount       Int      @default(0) @db.UnsignedTinyInt
   nextAppearanceAt DateTime @default(now())
 }

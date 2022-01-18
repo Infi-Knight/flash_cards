@@ -6,7 +6,7 @@ Table FlashCard {
   id Int [pk, increment]
   word String [unique, not null]
   definition String [not null]
-  bin Int [not null]
-  wrongCount Int [not null]
+  bin Int [not null, default: 0]
+  wrongCount Int [not null, default: 0]
   nextAppearanceAt DateTime [default: `now()`, not null]
 }
