@@ -6,7 +6,10 @@ import {
   Patch,
   Param,
   Delete,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { FlashCardsService } from './flash-cards.service';
 import { CreateFlashCardDto } from './dto/create-flash-card.dto';
 import { UpdateFlashCardDto } from './dto/update-flash-card.dto';
@@ -16,8 +19,20 @@ export class FlashCardsController {
   constructor(private readonly flashCardsService: FlashCardsService) {}
 
   @Post()
-  create(@Body() createFlashCardDto: CreateFlashCardDto) {
-    return this.flashCardsService.create(createFlashCardDto);
+  async create(@Body() createFlashCardDto: CreateFlashCardDto) {
+    try {
+      return await this.flashCardsService.create(createFlashCardDto);
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          throw new HttpException(
+            'This word already exists',
+            HttpStatus.CONFLICT,
+          );
+        }
+      }
+      throw error;
+    }
   }
 
   @Get()

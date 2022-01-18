@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { MantineProvider } from '@mantine/core';
+import { NotificationsProvider } from '@mantine/notifications';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -13,7 +14,9 @@ ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <MantineProvider>
-        <App />
+        <NotificationsProvider position="top-center" zIndex={2077}>
+          <App />
+        </NotificationsProvider>
       </MantineProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
