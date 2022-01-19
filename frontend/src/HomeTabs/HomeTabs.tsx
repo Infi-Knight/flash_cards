@@ -1,23 +1,9 @@
 import * as React from 'react';
 import axios, { AxiosError } from 'axios';
-import { useMutation, useQuery } from 'react-query';
-import {
-  Tabs,
-  Center,
-  TextInput,
-  Group,
-  Button,
-  Text,
-  Grid,
-  Container,
-  Box,
-  Loader,
-  Card,
-  ThemeIcon,
-} from '@mantine/core';
+import { useMutation } from 'react-query';
+import { Tabs, Center, TextInput, Group, Button, Text } from '@mantine/core';
 import { RichTextEditor } from '@mantine/rte';
 import { useNotifications } from '@mantine/notifications';
-import Countdown from 'react-countdown';
 
 import {
   MixIcon,
@@ -25,10 +11,8 @@ import {
   GearIcon,
   CardStackIcon,
   CheckIcon,
-  LapTimerIcon,
-  Cross2Icon,
-  RocketIcon,
 } from '@modulz/radix-icons';
+import CardsGallery from '../CardsGallary';
 
 export type FlashCardData = {
   word: string;
@@ -115,7 +99,7 @@ const HomeTabs = () => {
                     value={definition}
                     onChange={handleDefinitionChange}
                     controls={[
-                      ['h1', 'h2', 'h3', 'h4'],
+                      ['h2', 'h3', 'h4'],
                       ['bold', 'strike', 'italic', 'underline', 'link'],
                       ['clean'],
                       ['unorderedList', 'orderedList'],
@@ -142,9 +126,7 @@ const HomeTabs = () => {
             </form>
           </Tabs.Tab>
           <Tabs.Tab label="View Cards" icon={<CardStackIcon />}>
-            <Container>
-              <Cards />
-            </Container>
+            <CardsGallery />
           </Tabs.Tab>
         </Tabs>
       </Tabs.Tab>
@@ -152,116 +134,4 @@ const HomeTabs = () => {
   );
 };
 
-const Cards = React.memo(function Cards() {
-  const allWordsQuery = useQuery('/api/flash-cards', async () => {
-    try {
-      const res = await axios.get('/api/flash-cards');
-      return res.data as FlashCardData[];
-    } catch (error) {
-      const err = error as AxiosError;
-      if (err.response) {
-        throw new Error(err.response.data.message);
-      }
-    }
-  });
-
-  const { data, isLoading, error } = allWordsQuery;
-
-  const errorMessage = (error as Error | undefined)?.message;
-  if (isLoading) {
-    return (
-      <Container sx={{ paddingTop: '2rem' }}>
-        <Center>
-          <Loader variant="bars" />
-        </Center>
-      </Container>
-    );
-  }
-
-  if (error) {
-    return <div>{errorMessage}</div>;
-  }
-
-  return (
-    <Grid>
-      {data.map((card) => {
-        return (
-          <Grid.Col md={6} key={card.id}>
-            <FlashCard card={card} />
-          </Grid.Col>
-        );
-      })}
-    </Grid>
-  );
-});
-
-export type FlashCardProps = {
-  card: FlashCardData;
-};
-const FlashCard = React.memo(function FlashCard({ card }: FlashCardProps) {
-  const { word, definition, bin, id, nextAppearanceAt, wrongCount } = card;
-  console.log(wrongCount);
-  return (
-    <Card shadow="sm" padding="lg">
-      {word}
-      <RichTextEditor
-        sx={{ border: '0', '& .ql-editor': { padding: '0' } }}
-        onChange={() => {}}
-        value={definition}
-        readOnly
-      />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            gap: '0.5rem',
-          }}
-        >
-          <ThemeIcon variant="light" color="orange">
-            <LapTimerIcon />
-          </ThemeIcon>
-          <Box>
-            <Countdown date={nextAppearanceAt} />
-          </Box>
-        </Box>
-
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            gap: '0.5rem',
-          }}
-        >
-          <ThemeIcon variant="light" color="green">
-            <RocketIcon />
-          </ThemeIcon>
-          <Text>{bin}</Text>
-        </Box>
-
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            gap: '0.5rem',
-          }}
-        >
-          <ThemeIcon variant="light" color="red">
-            <Cross2Icon />
-          </ThemeIcon>
-          <Text>{wrongCount}</Text>
-        </Box>
-      </Box>
-    </Card>
-  );
-});
 export default HomeTabs;
