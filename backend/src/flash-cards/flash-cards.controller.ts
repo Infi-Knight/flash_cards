@@ -36,8 +36,8 @@ export class FlashCardsController {
   }
 
   @Get()
-  findAll() {
-    return this.flashCardsService.findAll();
+  async findAll() {
+    return await this.flashCardsService.findAll();
   }
 
   @Get(':id')

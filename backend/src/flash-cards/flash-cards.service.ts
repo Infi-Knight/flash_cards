@@ -7,12 +7,12 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class FlashCardsService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createFlashCardDto: CreateFlashCardDto) {
-    return await this.prisma.flashCard.create({ data: createFlashCardDto });
+  create(createFlashCardDto: CreateFlashCardDto) {
+    return this.prisma.flashCard.create({ data: createFlashCardDto });
   }
 
   findAll() {
-    return `This action returns all flashCards`;
+    return this.prisma.flashCard.findMany();
   }
 
   findOne(id: number) {
