@@ -19,15 +19,36 @@ import Countdown from 'react-countdown';
 import { LapTimerIcon, Cross2Icon, RocketIcon } from '@modulz/radix-icons';
 import { FlashCardData } from './HomeTabs/HomeTabs';
 
-const CardsGallery = React.memo(function CardsContainer() {
+const CardsGallery = () => {
   return (
-    <Container>
+    <Container sx={{ paddingTop: '2rem' }}>
       <Cards />
     </Container>
   );
-});
+};
 
-const Cards = React.memo(function Cards() {
+function resizeGridItem(item) {
+  let grid = document.querySelectorAll('#grid-content')[0];
+  const rowHeight = parseInt(
+    window.getComputedStyle(grid).getPropertyValue('grid-auto-rows')
+  );
+  const rowGap = parseInt(
+    window.getComputedStyle(grid).getPropertyValue('grid-row-gap')
+  );
+  const rowSpan = Math.ceil(
+    (item.querySelector('.content').getBoundingClientRect().height + rowGap) /
+      (rowHeight + rowGap)
+  );
+  item.style.gridRowEnd = 'span ' + rowSpan;
+}
+
+function resizeAllGridItems() {
+  const allItems = document.getElementsByClassName('item');
+  for (let x = 0; x < allItems.length; x++) {
+    resizeGridItem(allItems[x]);
+  }
+}
+const Cards = () => {
   const allWordsQuery = useQuery('/api/flash-cards', async () => {
     try {
       const res = await axios.get('/api/flash-cards');
@@ -38,6 +59,15 @@ const Cards = React.memo(function Cards() {
         throw new Error(err.response.data.message);
       }
     }
+  });
+
+  React.useEffect(() => {
+    window.addEventListener('resize', resizeAllGridItems);
+    return () => window.removeEventListener('resize', resizeAllGridItems);
+  }, []);
+
+  React.useEffect(() => {
+    window.requestAnimationFrame(resizeAllGridItems);
   });
 
   const { data, isLoading, error } = allWordsQuery;
@@ -58,17 +88,28 @@ const Cards = React.memo(function Cards() {
   }
 
   return (
-    <Grid>
+    <Box
+      id="grid-content"
+      sx={{
+        display: 'grid',
+        gap: '1rem',
+        gridAutoRows: '32px',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+        '@media screen and (max-width: 500px)': {
+          gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+        },
+      }}
+    >
       {data.map((card) => {
         return (
-          <Grid.Col md={6} key={card.id}>
+          <div className="item" key={card.word}>
             <FlashCard card={card} />
-          </Grid.Col>
+          </div>
         );
       })}
-    </Grid>
+    </Box>
   );
-});
+};
 
 export type FlashCardProps = {
   card: FlashCardData;
@@ -76,7 +117,7 @@ export type FlashCardProps = {
 const FlashCard = React.memo(function FlashCard({ card }: FlashCardProps) {
   const { word, definition, bin, nextAppearanceAt, wrongCount } = card;
   return (
-    <Card shadow="lg" padding="lg">
+    <Card shadow="lg" padding="lg" className="content">
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         <Text
           align="center"
