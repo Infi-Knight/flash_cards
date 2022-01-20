@@ -116,6 +116,7 @@ export type FlashCardProps = {
 };
 const FlashCard = React.memo(function FlashCard({ card }: FlashCardProps) {
   const { word, definition, bin, nextAppearanceAt, wrongCount } = card;
+
   return (
     <Card shadow="lg" padding="lg" className="content">
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -166,7 +167,11 @@ const FlashCard = React.memo(function FlashCard({ card }: FlashCardProps) {
               </ThemeIcon>
             </Tooltip>
             <Box>
-              <Countdown autoStart={true} date={nextAppearanceAt} />
+              <Countdown
+                key={Date.now()} // ensure that the countdown is started properly and is not using stale values
+                autoStart={true}
+                date={nextAppearanceAt}
+              />
             </Box>
           </Box>
 

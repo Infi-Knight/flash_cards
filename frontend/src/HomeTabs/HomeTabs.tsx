@@ -210,7 +210,7 @@ const CardQuestion = ({ cards, refetch }: CardQuestionProps) => {
       return axios.patch(`/api/flash-cards/${id}`, data);
     },
     {
-      onSettled: () => {
+      onSuccess: () => {
         setCardsToStudy(cardsToStudy.slice(1));
         setBtnsDisabled(false);
         setOpen(false);
