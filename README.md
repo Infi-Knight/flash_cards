@@ -12,7 +12,9 @@ Please notify me if you are unable to access the demo or if it is down.
   1. Ensure you have mysql installed and running
   2. Create a `.env` file and insert the mysql connection string in the following format e.g `DATABASE_URL=mysql://root:5623005@localhost:3306/shortform_mini_project`
   3. run `npm i`
-  4. Start the dev server at port `3001` using `npm run start:dev` 
+  4. run `npx prisma db push` to generate the db client and create tables in the database
+  5. Start the dev server at port `3001` using `npm run start:dev`
+  6. you can also run `npx prisma studio` to visualize the database
 
 - Go inside the `frontend` folder then:
   1. `npm i`
