@@ -19,14 +19,6 @@ import Countdown from 'react-countdown';
 import { LapTimerIcon, Cross2Icon, RocketIcon } from '@modulz/radix-icons';
 import { FlashCardData } from './HomeTabs/HomeTabs';
 
-const CardsGallery = () => {
-  return (
-    <Container sx={{ paddingTop: '2rem' }}>
-      <Cards />
-    </Container>
-  );
-};
-
 function resizeGridItem(item) {
   let grid = document.querySelectorAll('#grid-content')[0];
   const rowHeight = parseInt(
@@ -48,6 +40,14 @@ function resizeAllGridItems() {
     resizeGridItem(allItems[x]);
   }
 }
+const CardsGallery = () => {
+  return (
+    <Container sx={{ paddingTop: '2rem' }}>
+      <Cards />
+    </Container>
+  );
+};
+
 const Cards = () => {
   const allWordsQuery = useQuery('/api/flash-cards', async () => {
     try {
@@ -93,7 +93,7 @@ const Cards = () => {
       sx={{
         display: 'grid',
         gap: '1rem',
-        gridAutoRows: '32px',
+        gridAutoRows: '1rem',
         gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
         '@media screen and (max-width: 500px)': {
           gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
@@ -121,7 +121,7 @@ const FlashCard = React.memo(function FlashCard({ card }: FlashCardProps) {
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         <Text
           align="center"
-          color="blue"
+          color="pink"
           sx={{
             fontFamily: `'Playfair Display', serif`,
             fontSize: '2rem',
@@ -132,6 +132,7 @@ const FlashCard = React.memo(function FlashCard({ card }: FlashCardProps) {
         </Text>
         <RichTextEditor
           sx={{
+            overflowX: 'auto',
             border: '0',
             '& .ql-editor': {
               padding: '0',
