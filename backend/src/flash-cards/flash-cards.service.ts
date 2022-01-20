@@ -65,8 +65,7 @@ export class FlashCardsService {
       cardsToStudy = cardsInBinZero;
     } else if (
       cardsInBinZero.length === 0 &&
-      readyCardsNotInHardOrNeverOrZeroBin.length === 0 &&
-      cardsInHardOrNeverBin.length === 0
+      readyCardsNotInHardOrNeverOrZeroBin.length === 0
     ) {
       const totalCardsCount = await this.prisma.flashCard.count();
       if (totalCardsCount === 0) {
