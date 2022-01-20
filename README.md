@@ -5,6 +5,7 @@ Demo: https://3.221.190.74.nip.io/
 Please notify me if you are unable to access the demo or if it is down. 
 
 - Please take a look at `frontend/README.md` and `backend/README.md` for a detailed overview of both components
+- **NOTE** In the UI, there is an extra bin 12 which represents hard to remember words.
 
 ## Development instructions
 
