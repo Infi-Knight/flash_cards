@@ -166,7 +166,7 @@ const FlashCard = React.memo(function FlashCard({ card }: FlashCardProps) {
               </ThemeIcon>
             </Tooltip>
             <Box>
-              <Countdown date={nextAppearanceAt} />
+              <Countdown autoStart={true} date={nextAppearanceAt} />
             </Box>
           </Box>
 

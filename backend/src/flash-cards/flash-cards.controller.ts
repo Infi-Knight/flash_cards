@@ -40,17 +40,22 @@ export class FlashCardsController {
     return await this.flashCardsService.findAll();
   }
 
+  @Get('study')
+  async findAllCardsReadyForReview() {
+    return await this.flashCardsService.findAllCardsReadyForReview();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.flashCardsService.findOne(+id);
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateFlashCardDto: UpdateFlashCardDto,
   ) {
-    return this.flashCardsService.update(+id, updateFlashCardDto);
+    return await this.flashCardsService.update(+id, updateFlashCardDto);
   }
 
   @Delete(':id')
