@@ -1,10 +1,11 @@
-## TODO
+## tools and libraries used
 
-- cap the character limit in rte with an error message
+ - the frontend is a `React` SPA
+ - `react-query` for handling server cache and data synchronization
+ - Component library: [mantine.dev](https://mantine.dev/getting-started/)
+
+## What could be been done with more time
+
+- Improved error handling
 - cleanup duplicated code
-- move tabs to client side pages to improve the performance
-
-## Bugs:
-- in some of the cards, the content goes out of card boundary and stays hidden, add overflow or limit max width in the quill class to fix it
-- weird column gaps in masonary
-- If you try to add an invalid hyperlink in the rich text editor, the UI blows up.
+- Improve the performance on cards gallery, 
