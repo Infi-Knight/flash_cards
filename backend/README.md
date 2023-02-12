@@ -16,11 +16,6 @@ Each of these APIs is inside the controllers file with the associated business l
 ## Tools and libraries used
 
 - Framework used: [Nest.js](https://nestjs.com/) - a Node.js framework
-- Database: `mysql` hosted on [planetscale.com](https://planetscale.com/)
+- Database: `mysql` ~~hosted on [planetscale.com](https://planetscale.com/)~~
 - ORM: [prisma](https://www.prisma.io/)
-- server running on a `t2 micro` AWS instance proxied by a [Caddy](https://caddyserver.com/) webserver and using nip.io dns for automating https setup
-
-## What more could be done
-
-- Add caching 
-- Automated testing
+- ~~server running on a `t2 micro` AWS instance proxied by a [Caddy](https://caddyserver.com/) webserver and using nip.io dns for automating https setup~~
