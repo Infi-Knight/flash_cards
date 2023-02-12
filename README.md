@@ -1,12 +1,8 @@
 # flash_cards
 
-Demo: https://3.221.190.74.nip.io/
-
-Please notify me if you are unable to access the demo or if it is down. 
-
 - Please take a look at `frontend/README.md` and `backend/README.md` for a detailed overview of both components
 - **NOTE** In the UI, there is an extra bin 12 which represents hard to remember words.
-- When reviewing the words, the UI will automatically move to next words or render an appropriate message if required. If you see a blank review screen, please try switching the tabs in the website itself (e.g go to admin tab and then come back).
+- When reviewing the words, the UI will automatically move to next words or render an appropriate message if required.
 
 ## Development instructions
 
