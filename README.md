@@ -1,5 +1,7 @@
 # flash_cards
 
+A simple web app demoing spaced repetition model.
+
 ## Spec | Overview
 
 The user creates vocabulary flashcards they want to study. When reviewing a flashcard, the user can choose whether they got it right or not. Each time they gets it right, the time for the card to reappear is increased. If they gets it wrong, the card is reset to reappear much sooner. This is a basic spaced repetition learning model.
